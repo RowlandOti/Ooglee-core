@@ -1,0 +1,22 @@
+{
+    "name": "rowland/ooglee-platform",
+    "description": "Ooglee platform core library",
+    "keywords": ["laravel","blog"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Otieno Rowland",
+            "email": "rowlandmtetezi@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "~4|~5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ooglee\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
