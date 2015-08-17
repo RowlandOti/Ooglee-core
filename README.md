@@ -1,7 +1,7 @@
 Laravel User
 ============
 
-A Laravel 5 package to add users to a site
+A Laravel 5 Ooglee platform core library
 
 ## Features
 
