@@ -6,11 +6,11 @@ class OogleeServiceProvider extends LaravelServiceProvider {
 
 	protected $packageVendor = 'rowland';
 
-	protected $packageName = 'ooglee-platform';
+	protected $packageName = 'ooglee-core';
 
 	protected $packageDir = __DIR__;
 
-	protected $packageNameCapitalized = 'Ooglee-platform';
+	protected $packageNameCapitalized = 'Ooglee-core';
 
 	protected $packageConfigClass = 'Ooglee\Infrastructure\Config\OogleeConfig';
 
