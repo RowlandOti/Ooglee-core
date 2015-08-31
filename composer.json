@@ -1,5 +1,5 @@
 {
-    "name": "rowland/ooglee-platform",
+    "name": "rowland/ooglee-core",
     "description": "Ooglee platform core library",
     "keywords": ["laravel","blog"],
     "license": "MIT",
