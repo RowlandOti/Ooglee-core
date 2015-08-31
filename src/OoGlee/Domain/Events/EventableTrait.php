@@ -1,6 +1,6 @@
 <?php namespace Ooglee\Domain\Events;
 
-use Ooglee\Domain\Events\IEvent;
+use Ooglee\Domain\Events\Contracts\IEvent;
 
 trait EventableTrait {
 

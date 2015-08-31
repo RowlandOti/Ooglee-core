@@ -1,7 +1,6 @@
-<?php Ooglee\Application\Entities;
+<?php namespace Ooglee\Application\Entities;
 
 use Ooglee\Domain\Entities\ABaseRepository;
-use Ooglee\Application\Entities\ABaseService;
 use Ooglee\Domain\Contracts\IBaseService;
 use Helpers\Response\MyResponse;
 
@@ -12,7 +11,7 @@ abstract class  ABaseService implements IBaseService {
 
     protected $repository;
 
-    public function __construct(ABaseRepository $repository)
+    public function __construct(IBaseRepository $repository)
     {
       $this->repository = $repository;
     }

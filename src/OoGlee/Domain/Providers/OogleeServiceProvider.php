@@ -1,15 +1,18 @@
-<?php namespace Ooogle\Domain\Providers;
+<?php namespace Ooglee\Domain\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Ooglee\Domain\Providers\LaravelServiceProvider;
 
-class OogleeServiceProvider extends ServiceProvider {
+class OogleeServiceProvider extends LaravelServiceProvider {
 
-	/**
-	 * Indicates if loading of the provider is deferred.
-	 *
-	 * @var bool
-	 */
-	protected $defer = false;
+	protected $packageVendor = 'rowland';
+
+	protected $packageName = 'ooglee-platform';
+
+	protected $packageDir = __DIR__;
+
+	protected $packageNameCapitalized = 'Ooglee-platform';
+
+	protected $packageConfigClass = 'Ooglee\Infrastructure\Config\OogleeConfig';
 
 	/**
 	 * Bootstrap the application events.
@@ -18,9 +21,7 @@ class OogleeServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		// Passing custom namespace to package method
-		// package('vendor/package', 'custom-namespace')
-		$this->package('rowland/ooglee-core','ooglee-core');
+		parent::boot();
 
 		\App::register('Ooglee\Domain\Providers\HashingServiceProvider');
 		\App::register('Ooglee\Domain\Providers\SyncCommandBusServiceProvider');
@@ -33,7 +34,7 @@ class OogleeServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-
+		parent::register();
 	}
 
 	/**
@@ -45,5 +46,4 @@ class OogleeServiceProvider extends ServiceProvider {
 	{
 		return array();
 	}
-
 }

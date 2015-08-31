@@ -1,4 +1,4 @@
-<?php namespace App\Ooglee\Domain\CommandBus;
+<?php namespace Ooglee\Domain\CommandBus;
 
 
 interface ICommand {

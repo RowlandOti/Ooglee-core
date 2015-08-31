@@ -1,5 +1,6 @@
-<?php namespace App\Ooglee\Domain\Contracts;
+<?php namespace Ooglee\Domain\Contracts;
 
+use Ooglee\Domain\CommandBus\ICommand;
 
 interface IInflector   {
 

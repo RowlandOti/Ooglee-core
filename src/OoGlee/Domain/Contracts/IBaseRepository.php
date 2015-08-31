@@ -7,5 +7,5 @@
 	 * Each Repository class would extend a BaseRepository class which 
 	 * implements IBaseRepository
 	 */
-    public function save($model);
+    //public function save($model);
   }

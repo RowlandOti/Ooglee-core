@@ -1,6 +1,6 @@
 <?php namespace Ooglee\Domain\CommandBus;
 
-use Ooglee\Domain\CommandBus\ICommandBus
+use Ooglee\Domain\CommandBus\ICommand;
 
 
 interface ICommandBus   {
@@ -11,6 +11,6 @@ interface ICommandBus   {
 	 * 
 	 */
 
-	public function execute(ICommandBus $command);
+	public function execute(ICommand $command);
 	
 }

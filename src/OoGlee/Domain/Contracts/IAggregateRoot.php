@@ -1,4 +1,6 @@
 <?php namespace Ooglee\Domain\Contracts;
+
+use Ooglee\Domain\Events\Contracts\IEvent;
  
 interface IAggregateRoot
 {
@@ -14,7 +16,7 @@ interface IAggregateRoot
      *
      * @return Identifier
      */
-    public function id();
+    //public function id();
  
     /**
      * Add an event to the pending events
@@ -22,7 +24,7 @@ interface IAggregateRoot
      * @param $event
      * @return void
      */
-    public function recordEvents($event);
+    public function recordEvents(IEvent $event);
  
     /**
      * Release the events

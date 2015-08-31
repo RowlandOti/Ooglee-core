@@ -1,10 +1,11 @@
-<?php namespace Ooglee\Application\Commands;
+<?php namespace Ooglee\Application\CommandBus;
 
 use Illuminate\Container\Container;
 use Ooglee\Domain\Contracts\IInflector;
-use Ooglee\Domain\Contracts\ICommandBus;
+use Ooglee\Domain\CommandBus\ICommandBus;
+use Ooglee\Domain\CommandBus\ICommand;
 
-class SyncCommandBus extends ACommandBus implements ICommandBus {
+class SyncCommandBus implements ICommandBus {
 
 
 	/**
