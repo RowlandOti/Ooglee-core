@@ -2,6 +2,7 @@
 
 use Ooglee\Domain\Contracts\IInflector;
 use Ooglee\Domain\CommandBus\ICommand;
+use ReflectionClass;
 
 class CommandNameInflector implements IInflector {
 
@@ -11,14 +12,16 @@ class CommandNameInflector implements IInflector {
 	 */
 
     /**
-     * Find a Handler Class for a Command
+     * Map a Handler Class for corresponding Command
      *
      * @param Command $command
      * @return string
      */
     public function inflect(ICommand $command)
     {
-        return str_replace('Command', 'Handler', get_class($command));
+        $tmpClass = str_replace('Domain', 'Application', get_class($command));
+        $handlerClass = str_replace('Command', 'Handler', $tmpClass);
+
+        return $handlerClass;
     }
-	
 }

@@ -23,8 +23,7 @@ class OogleeServiceProvider extends LaravelServiceProvider {
 	{
 		parent::boot();
 
-		\App::register('Ooglee\Domain\Providers\HashingServiceProvider');
-		\App::register('Ooglee\Domain\Providers\SyncCommandBusServiceProvider');
+		
 	}
 
 	/**
@@ -35,6 +34,28 @@ class OogleeServiceProvider extends LaravelServiceProvider {
 	public function register()
 	{
 		parent::register();
+
+		\App::register('Ooglee\Domain\Providers\HashingServiceProvider');
+		\App::register('Ooglee\Domain\Providers\SyncCommandBusServiceProvider');
+
+		// Third Party Service Providers
+		\App::register('Collective\Html\HtmlServiceProvider');
+
+		/**
+        * This allows the facade to work without the developer having to add it to the Alias array in app/config/app.php
+        * http://fideloper.com/create-facade-laravel-4
+        * Works for L5 too
+        */
+		$this->app->booting(function()
+		{
+			$loader = \Illuminate\Foundation\AliasLoader::getInstance();
+
+			$loader->alias('OogleeCConfig', 'Ooglee\Infrastructure\Config\Facades\OogleeConfigFacade');
+
+			// Third Party Facades
+			$loader->alias('Form', 'Collective\Html\FormFacade');
+            $loader->alias('Html', 'Collective\Html\HtmlFacade');
+        });
 	}
 
 	/**

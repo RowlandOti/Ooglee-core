@@ -12,34 +12,8 @@ use Illuminate\Contracts\Support\Arrayable;
  * @author        Otieno Rowland <rowland@skyllabler.com>
  * @package       rowland\ooglee-core
  */
-class EloquentPresenter extends ABasePresenter implements Arrayable
+abstract class EloquentPresenter extends ABasePresenter implements Arrayable
 {
-
-     /**
-     * The resource entity.
-     * This is for IDE hinting.
-     *
-     * @var ABaseEloquentModel
-     */
-    protected $entity;
-
-     /**
-     * The config object
-     *
-     * @var LaravelConfig
-     */
-    protected $config;
-
-    /**
-     * Create a new EloquentPresenter instance.
-     *
-     * @param $entity
-     */
-    public function __construct(BaseEloquentModel $entity, LaravelConfig $config)
-    {
-            $this->entity = $entity;
-            $this->config = $config;
-    }
 
     /**
      * Return the ID.
@@ -68,8 +42,7 @@ class EloquentPresenter extends ABasePresenter implements Arrayable
      */
     public function createdAtDate()
     {
-        return $this->entity->created_at->setTimezone($this->config->get('config.timezone'))
-                                        ->format($this->config->get('config.date_format'));
+        return $this->entity->created_at->diffForHumans();
     }
 
     /**

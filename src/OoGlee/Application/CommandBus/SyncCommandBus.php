@@ -29,13 +29,13 @@ class SyncCommandBus implements ICommandBus {
         $this->inflector = $inflector;
     }
 
+    public function execute(ICommand $command)
+    {
+        return $this->resolveHandler($command)->handle($command);
+    }
+
     public function resolveHandler(ICommand $command)
     {
         return $this->container->make($this->inflector->inflect($command));
-    }
-
-	public function execute(ICommand $command)
-    {
-        return $this->resolveHandler($command)->handle($command);
     }
 }

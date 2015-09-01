@@ -1,5 +1,6 @@
-<?php namespace App\Ooglee\Domain\Contracts;
+<?php namespace Ooglee\Domain\Contracts;
 
+use Ooglee\Domain\CommandBus\ICommand;
 
 interface IHandler   {
 
@@ -9,6 +10,6 @@ interface IHandler   {
 	 * 
 	 */
 
-	public function handle(ICommandBus $command);
+	public function handle(ICommand $command);
 	
 }

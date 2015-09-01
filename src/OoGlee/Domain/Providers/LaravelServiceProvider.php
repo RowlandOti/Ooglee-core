@@ -54,7 +54,7 @@ abstract class LaravelServiceProvider extends ServiceProvider {
 	{
 		$this->registerCurrentDir();
 		$this->registerPackageNameSpace();
-		$this->registerConfig();
+		$this->registerPackageConfig();
 	}
 
 	
@@ -112,11 +112,11 @@ abstract class LaravelServiceProvider extends ServiceProvider {
 	}
 
 	/**
-	 * Register the configuration object e.g app['ooglee-blog.config']
+	 * Register the configuration object instance e.g app['ooglee-blog.config']
 	 *
 	 * @return void
 	 */
-	private function registerConfig()
+	private function registerPackageConfig()
 	{
 		if (isLaravel5())
 		{
@@ -127,6 +127,13 @@ abstract class LaravelServiceProvider extends ServiceProvider {
 	            // Register the corresponding config for package
 	            return new $this->packageConfigClass($app['config'], $configNameSpace);
 	        });
+
+	        $this->app->bindShared($this->packageName.'.config', function($app)
+			{
+				$configNameSpace = 'vendor.'.$this->packageVendor.'.'.$this->packageName.'.';
+		        // Register the corresponding config for package
+				return new $this->packageConfigClass($app['config'], $configNameSpace);
+			});
 			
 		}
 
