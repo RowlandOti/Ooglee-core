@@ -2,4 +2,7 @@
 
 use \Exception as Exception;
 
-class PresenterException extends Exception {}
+class PresenterException extends Exception 
+{
+
+}

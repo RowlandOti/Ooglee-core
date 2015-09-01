@@ -1,6 +1,6 @@
 <?php namespace Ooglee\Domain\Entities;
 
-use Robbo\Presenter\Presenter as RobboPresenter;
+use Ooglee\Infrastructure\Presenter\APresenter;
 
 /**
  * Class Presenter
@@ -10,7 +10,7 @@ use Robbo\Presenter\Presenter as RobboPresenter;
  * @author        Otieno Rowland <rowland@skyllabler.com>
  * @package       Ooglee\Core
  */
-abstract class ABasePresenter extends RobboPresenter
+abstract class ABasePresenter extends APresenter
 {
 
     /**
