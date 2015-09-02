@@ -120,14 +120,6 @@ abstract class LaravelServiceProvider extends ServiceProvider {
 	{
 		if (isLaravel5())
 		{
-			// Bind the returned class to the namespace packageConfigClass
-	        $this->app->bind($this->packageConfigClass, function($app)
-	        {
-	        	$configNameSpace = 'vendor.'.$this->packageVendor.'.'.$this->packageName.'.';
-	            // Register the corresponding config for package
-	            return new $this->packageConfigClass($app['config'], $configNameSpace);
-	        });
-
 	        $this->app->bindShared($this->packageName.'.config', function($app)
 			{
 				$configNameSpace = 'vendor.'.$this->packageVendor.'.'.$this->packageName.'.';
