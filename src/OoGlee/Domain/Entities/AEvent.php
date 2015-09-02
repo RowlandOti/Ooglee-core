@@ -1,4 +1,4 @@
-<?php namespace App\Oooglee\Domain\Entities;
+<?php namespace Ooglee\Domain\Entities;
 
 abstract class AEvent {
 

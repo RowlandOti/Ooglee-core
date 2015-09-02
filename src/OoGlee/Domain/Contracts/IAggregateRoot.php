@@ -1,6 +1,6 @@
 <?php namespace Ooglee\Domain\Contracts;
 
-use Ooglee\Domain\Events\Contracts\IEvent;
+use Ooglee\Domain\Contracts\IEvent;
  
 interface IAggregateRoot
 {
