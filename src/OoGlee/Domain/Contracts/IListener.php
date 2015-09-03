@@ -1,4 +1,4 @@
-<?php namespace App\Ooglee\Domain\Contracts;
+<?php namespace Ooglee\Domain\Contracts;
 
 
 interface IListener   {
