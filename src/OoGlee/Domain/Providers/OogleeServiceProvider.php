@@ -22,8 +22,6 @@ class OogleeServiceProvider extends LaravelServiceProvider {
 	public function boot()
 	{
 		parent::boot();
-
-		
 	}
 
 	/**
@@ -37,6 +35,7 @@ class OogleeServiceProvider extends LaravelServiceProvider {
 
 		\App::register('Ooglee\Domain\Providers\HashingServiceProvider');
 		\App::register('Ooglee\Domain\Providers\SyncCommandBusServiceProvider');
+		\App::register('Ooglee\Infrastructure\BreadCrumb\Providers\BreadCrumbServiceProvider');
 
 		// Third Party Service Providers
 		\App::register('Collective\Html\HtmlServiceProvider');

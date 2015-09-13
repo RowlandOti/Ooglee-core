@@ -1,8 +1,7 @@
 Laravel User
 ============
 
-A Laravel 5 ooglee-core library
+A Laravel 5 Ooglee platform core library
 
 ## Features
 
-Coming soon

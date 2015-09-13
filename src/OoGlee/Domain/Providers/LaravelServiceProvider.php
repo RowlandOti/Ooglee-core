@@ -68,11 +68,27 @@ abstract class LaravelServiceProvider extends ServiceProvider {
 				$publish_path = 'config/vendor/'.$this->packageNameSpace.DIRECTORY_SEPARATOR.'config.php';
 				$this->publishes([$configFile => base_path($publish_path) ],'config');
 			}
+			else
+			{
+				if (file_exists($configFile = $this->__DIR__.'/config/config.php'))
+				{
+					$publish_path = 'config/vendor/'.$this->packageNameSpace.DIRECTORY_SEPARATOR.'config.php';
+					$this->publishes([$configFile => base_path($publish_path) ],'config');
+				}
+			}
 
 			if (file_exists($viewsPath = $this->__DIR__.'/../../../resources/views/'))
 			{
 				$publish_path = 'resources/views/vendor/'.$this->packageNameSpace;
 				$this->publishes([$viewsPath => base_path($publish_path) ],'views');
+			}
+			else
+			{
+				if (file_exists($viewsPath = $this->__DIR__.'/resources/views/'))
+				{
+					$publish_path = 'resources/views/vendor/'.$this->packageNameSpace;
+					$this->publishes([$viewsPath => base_path($publish_path) ],'views');
+				}
 			}
 
 			if (file_exists($langsPath = $this->__DIR__.'/../../../resources/lang/'))
@@ -80,17 +96,41 @@ abstract class LaravelServiceProvider extends ServiceProvider {
 				$publish_path = 'resources/lang/vendor/'.$this->packageNameSpace;
 				$this->publishes([$langsPath => base_path($publish_path) ],'views');
 			}
+			else
+			{
+				if (file_exists($langsPath = $this->__DIR__.'/resources/lang/'))
+				{
+					$publish_path = 'resources/lang/vendor/'.$this->packageNameSpace;
+					$this->publishes([$langsPath => base_path($publish_path) ],'views');
+				}
+			}
 
 			if (file_exists($migrationsPath = $this->__DIR__.'/../../../migrations/'))
 			{
 				$publish_path = 'database/migrations/vendor/'.$this->packageNameSpace;
 				$this->publishes([$migrationsPath => base_path($publish_path) ],'migrations');
 			}
+			else
+			{
+				if (file_exists($migrationsPath = $this->__DIR__.'/../../../migrations/'))
+				{
+					$publish_path = 'database/migrations/vendor/'.$this->packageNameSpace;
+					$this->publishes([$migrationsPath => base_path($publish_path) ],'migrations');
+				}
+			}
 
 			if (file_exists($seedsPath = $this->__DIR__.'/../../../seeds/'))
 			{
 				$publish_path = 'database/seeds/vendor/'.$this->packageNameSpace;
 				$this->publishes([$seedsPath => base_path($publish_path) ],'seeds');
+			}
+			else
+			{
+				if (file_exists($seedsPath = $this->__DIR__.'/seeds/'))
+				{
+					$publish_path = 'database/seeds/vendor/'.$this->packageNameSpace;
+					$this->publishes([$seedsPath => base_path($publish_path) ],'seeds');
+				}
 			}
 		}
 	}
@@ -102,7 +142,7 @@ abstract class LaravelServiceProvider extends ServiceProvider {
 			$this->packageNameSpace = $this->packageVendor.DIRECTORY_SEPARATOR.$this->packageName;
 		}
 	}
-    // Check whether current laravel version is graeter than 5
+    // Register the current directory
 	protected function registerCurrentDir()
 	{
 		if (isLaravel5())
@@ -136,22 +176,27 @@ abstract class LaravelServiceProvider extends ServiceProvider {
 		if (isLaravel5())
 		{
 			$viewsPubFolder = base_path().'/resources/views/vendor/'.$this->packageNameSpace;
+			$viewsFolder = $this->__DIR__.'/../../../resources/views/';
+			$viewsChildFolder = $this->__DIR__.'/resources/views/';
 
 			if (is_dir($viewsPubFolder)) 
 			{
     			// The package views have been published - use those views.
     			$this->loadViewsFrom($viewsPubFolder, $this->packageName);
-			} 
-		    else 
-		    {
-		    	$viewsFolder = $this->__DIR__.'/../../../resources/views/';
-				
-		        // The package views have not been published. Use the defaults.
-		        if (is_dir($viewsFolder))
+			}
+	        // The package views have not been published. Use the defaults.
+	        else if(is_dir($viewsFolder))
+			{
+				$this->loadViewsFrom($viewsFolder, $this->packageName);
+			}
+			else
+			{
+				// The package views have not been published. Use the defaults in child package.
+		        if (is_dir($viewsChildFolder))
 				{
-					$this->loadViewsFrom($viewsFolder, $this->packageName);
+					$this->loadViewsFrom($viewsChildFolder, $this->packageName);
 				}
-		    }
+			}
 		}
 	}
 
@@ -160,24 +205,45 @@ abstract class LaravelServiceProvider extends ServiceProvider {
 		if (isLaravel5())
 		{
 			$langsPubFolder = base_path().'/resources/lang/vendor/'.$this->packageNameSpace;
+			$langsFolder = $this->__DIR__.'/../../../resources/lang/';
+			$langsChildFolder = $this->__DIR__.'/resources/lang/';
 
 			if (is_dir($langsPubFolder)) 
 			{
     			// The package langs have been published - use those views.
     			$this->loadTranslationsFrom($langsPubFolder, $this->packageName);
 			} 
-		    else 
-		    {
-		    	$langsFolder = $this->__DIR__.'/../../../resources/lang/';
-				
+	        // The package langs have not been published. Use the defaults.
+	        else if(is_dir($langsFolder))
+			{
+				$this->loadTranslationsFrom($langsFolder, $this->packageName);
+			}
+			else
+			{
 		        // The package langs have not been published. Use the defaults.
-		        if (is_dir($langsFolder))
+		        if (is_dir($langsChildFolder))
 				{
-					$this->loadTranslationsFrom($langsFolder, $this->packageName);
+					$this->loadTranslationsFrom($langsChildFolder, $this->packageName);
 				}
-		    }
+			}
+		}
+	}	
+
+	/**
+	 * Get a configuration value
+	 *
+	 * @param  string $key
+	 * @return mixed
+	 */
+	public function getConfig($key = null)
+	{
+		if (isLaravel5())
+		{
+			$configNameSpace = 'vendor.'.$this->packageVendor.'.'.$this->packageName.'.';
+											//question ? result if true :(result is false)
+			$key = $this->$configNameSpace  . ($key ? '.'.$key : '');
+
+			return $this->app['config']->get($key);
 		}
 	}
-
-	
 }
