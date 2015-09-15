@@ -241,7 +241,7 @@ abstract class LaravelServiceProvider extends ServiceProvider {
 		{
 			$configNameSpace = 'vendor.'.$this->packageVendor.'.'.$this->packageName.'.';
 											//question ? result if true :(result is false)
-			$key = $this->$configNameSpace  . ($key ? '.'.$key : '');
+			$key = $configNameSpace  . ($key ? '.'.$key : '');
 
 			return $this->app['config']->get($key);
 		}

@@ -23,6 +23,7 @@ class BreadCrumbServiceProvider extends LaravelServiceProvider {
 	public function boot()
 	{
 		parent::boot();
+		$this->loadBreadCrumbs();
 	}
 	
 	/**
@@ -33,23 +34,8 @@ class BreadCrumbServiceProvider extends LaravelServiceProvider {
 	public function register()
 	{
 		parent::register();
+		$this->registerFacades();
 		$this->registerBreadcrumb();
-
-		// Third Party Service Providers
-
-		/**
-        * This allows the facade to work without the developer having to add it to the Alias array in config/app.php
-        * http://fideloper.com/create-facade-laravel-4
-        * Works for L5 too
-        */
-		$this->app->booting(function()
-		{
-			$loader = \Illuminate\Foundation\AliasLoader::getInstance();
-
-			$loader->alias('OogleeBCConfig', 'Ooglee\Infrastructure\Config\Facades\OogleeBreadCrumbConfigFacade');
-
-			// Third Party Facades
-        });
 	}
 
 	/**
@@ -71,14 +57,43 @@ class BreadCrumbServiceProvider extends LaravelServiceProvider {
 	{
 		if (isLaravel5())
 		{
+			// Place module in IoC container
 	        $this->app->bindShared('breadcrumb', function($app)
 			{
 				$breadcrumb = $this->app->make('Ooglee\Infrastructure\BreadCrumb\Manager');
 
 				$breadcrumb->setView($this->getConfig('config.breadcrumb_view.view'));
+				var_dump($this->getConfig('config.breadcrumb_view.view'));
 
 				return $breadcrumb;
 			});
 		}
+	}
+
+	private function registerFacades() 
+	{
+		// Third Party Service Providers
+
+		/**
+        * This allows the facade to work without the developer having to add it to the Alias array in config/app.php
+        * http://fideloper.com/create-facade-laravel-4
+        * Works for L5 too
+        */
+		$this->app->booting(function()
+		{
+			$loader = \Illuminate\Foundation\AliasLoader::getInstance();
+
+			$loader->alias('OogleeBCConfig', 'Ooglee\Infrastructure\Config\Facades\OogleeBreadCrumbConfigFacade');
+			$loader->alias('BreadCrumbs', 'Ooglee\Infrastructure\BreadCrumb\Facades\BreadCrumbFacade');
+
+			// Third Party Facades
+        });
+
+        return true;
+	}
+
+	private function loadBreadCrumbs() 
+	{
+		require __DIR__.'/../config/breadcrumb.php';
 	}
 }

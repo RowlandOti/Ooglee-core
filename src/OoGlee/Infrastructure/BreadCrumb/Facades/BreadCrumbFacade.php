@@ -1,4 +1,4 @@
-<?php namespace Ooglee\Infrastructure\BreadCrumb\Facade;
+<?php namespace Ooglee\Infrastructure\BreadCrumb\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
