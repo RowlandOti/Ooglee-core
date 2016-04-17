@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Ooglee\\": "src/"
+            "Ooglee\\": "src/OoGlee"
         }
     },
     "minimum-stability": "dev"
