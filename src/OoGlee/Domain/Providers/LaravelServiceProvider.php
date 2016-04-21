@@ -63,6 +63,7 @@ abstract class LaravelServiceProvider extends ServiceProvider {
 	{
 		if ($this->isLaravel5())
 		{
+			#CONFIG
 			if (file_exists($configFile = $this->__DIR__.'/../../../config/config.php'))
 			{
 				$publish_path = 'config/vendor/'.$this->packageNameSpace.DIRECTORY_SEPARATOR.'config.php';
@@ -76,7 +77,7 @@ abstract class LaravelServiceProvider extends ServiceProvider {
 					$this->publishes([$configFile => base_path($publish_path) ],'config');
 				}
 			}
-
+			#VIEWS
 			if (file_exists($viewsPath = $this->__DIR__.'/../../../resources/views/'))
 			{
 				$publish_path = 'resources/views/vendor/'.$this->packageNameSpace;
@@ -90,21 +91,35 @@ abstract class LaravelServiceProvider extends ServiceProvider {
 					$this->publishes([$viewsPath => base_path($publish_path) ],'views');
 				}
 			}
-
+			#LANGUAGES
 			if (file_exists($langsPath = $this->__DIR__.'/../../../resources/lang/'))
 			{
 				$publish_path = 'resources/lang/vendor/'.$this->packageNameSpace;
-				$this->publishes([$langsPath => base_path($publish_path) ],'views');
+				$this->publishes([$langsPath => base_path($publish_path) ],'langs');
 			}
 			else
 			{
 				if (file_exists($langsPath = $this->__DIR__.'/resources/lang/'))
 				{
 					$publish_path = 'resources/lang/vendor/'.$this->packageNameSpace;
-					$this->publishes([$langsPath => base_path($publish_path) ],'views');
+					$this->publishes([$langsPath => base_path($publish_path) ],'langs');
 				}
 			}
-
+			#ASSETS
+			if (file_exists($assetsPath = $this->__DIR__.'/../../../resources/assets/'))
+			{
+				$publish_path = 'resources/assets/vendor/'.$this->packageNameSpace;
+				$this->publishes([$assetsPath => base_path($publish_path) ],'assets');
+			}
+			else
+			{
+				if (file_exists($assetsPath = $this->__DIR__.'/resources/assets/'))
+				{
+					$publish_path = 'resources/assets/vendor/'.$this->packageNameSpace;
+					$this->publishes([$assetsPath => base_path($publish_path) ],'assets');
+				}
+			}
+			#MIGRATIONS
 			if (file_exists($migrationsPath = $this->__DIR__.'/../../../migrations/'))
 			{
 				$publish_path = 'database/migrations/vendor/'.$this->packageNameSpace;
@@ -118,7 +133,7 @@ abstract class LaravelServiceProvider extends ServiceProvider {
 					$this->publishes([$migrationsPath => base_path($publish_path) ],'migrations');
 				}
 			}
-
+			#SEEDS
 			if (file_exists($seedsPath = $this->__DIR__.'/../../../seeds/'))
 			{
 				$publish_path = 'database/seeds/vendor/'.$this->packageNameSpace;
@@ -227,7 +242,7 @@ abstract class LaravelServiceProvider extends ServiceProvider {
 				}
 			}
 		}
-	}	
+	}		
 
 	/**
 	 * Get a configuration value
